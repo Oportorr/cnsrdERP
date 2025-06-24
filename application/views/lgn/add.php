@@ -1,0 +1,146 @@
+<div class="content-body">
+    <div class="card">
+        <div class="card-header">            
+            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                    <li><a data-action="close"><i class="ft-x"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <?php 
+        if(isset($flash)){
+            echo $flash;
+        }
+        ?>
+        <?php echo validation_errors('<p style="color:red;">', '</p>'); ?>
+        <div id="notify" class="alert alert-success" style="display:none;">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+            <div class="message"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-body grid_3 grid_4">
+    <?php echo form_open("lgn/Create/", array('id' => 'frmlgnadd', 'class' => 'form-horizontal')); ?>
+        <h5><?php echo $this->lang->line('add_lgn') ?></h5>
+                <hr>
+<div class="row col-md-12">
+    <div class="form-group col-md-6">
+        <label class="col-form-label" for="series">
+            <?php echo $this->lang->line('series') ?>
+        </label>
+<?php $type = array('' => $this->lang->line('select'), 'A' => 'A', 'B' =>'B', 'C' =>'C', 'D' =>'D', 'E' =>'E');
+ echo form_dropdown('series', $type, '', 'class="form-control" data-validation-engine="validate[required]" id="series"'); ?>
+        </div>
+
+    <div class="form-group col-md-6">
+        <label for="lgn_type" class="col-form-label">
+            <?php echo $this->lang->line("lgn_type"); ?>
+        </label>
+        <?php $type = array('' => $this->lang->line('when_you_choose'), '01' => $this->lang->line('invoices_tax_receipts'), '02' =>$this->lang->line('consumption_invoices'), '03' =>$this->lang->line('debt_notes') , '04' =>$this->lang->line('credit_notes') , '11' =>$this->lang->line('purchase_eceipts'),'12' =>$this->lang->line('single_income_egister'), '13' =>$this->lang->line('proof_of_minor_expense_expenses') ,'14' =>$this->lang->line('vouchers_for_special_regimes'),'15' =>$this->lang->line('government_receipts'),'16' =>$this->lang->line('export_receipts'),'17' =>$this->lang->line('vouchers_for_payments_from_abroad') );
+        echo form_dropdown('lgn_type', $type, '', 'class="form-control" data-validation-engine="validate[required]" id="lgn_type"'); 
+        ?>
+    </div>
+    <!--<div class="form-group col-md-6">
+        <label class="col-form-label" for="business_division">
+            <?php echo $this->lang->line('business_div') ?>
+        </label>
+        <?php $type = array('' => $this->lang->line('select'), '01' => '01', '02' =>'02', '03' =>'03', '04' =>'04', '05' =>'05','06' => '06','07' => '07','08' => '08','09' => '09','10' => '10');
+        echo form_dropdown('business_division', $type, '', 'class="form-control" id="business_div"'); ?>
+    </div>-->
+</div>
+<!--<div class="row col-md-12">
+    <div class="form-group col-md-6">
+        <label class="col-form-label" for="emission_pt">
+            <?php echo $this->lang->line('emission_pt') ?>
+        </label>
+        <?php $type = array('' => $this->lang->line('select'), '001' => '001', '100' =>'100', '010' =>'010', '110' =>'110', '101' =>'101','011'=>'011','111'=>'111');
+        echo form_dropdown('emission_pt', $type, '', 'class="form-control" id="emission_pt"'); ?>
+    </div>
+
+    <div class="form-group col-md-6">
+        <label for="printer_area" class="col-form-label">
+            <?php echo $this->lang->line("printer_area"); ?>
+        </label>
+        <?php $type = array('' => $this->lang->line('select'), '001' => '001', '100' =>'100', '010' =>'010', '110' =>'110', '101' =>'101','011'=>'011','111'=>'111');
+            echo form_dropdown('printer_area', $type, '', 'class="form-control" id="type"'); ?>
+    </div>
+</div>-->
+
+<div class="row col-md-12">
+    <div class="form-group col-md-6">
+        <label class="col-form-label" for="starting_seq">
+            <?php echo $this->lang->line('starting_seq') ?>
+        </label>
+        <?php echo form_input('starting_seq', (isset($_POST['starting_seq']) ? $_POST['starting_seq'] : ""), 'class="form-control tip" id="reference_no" data-validation-engine="validate[required,custom[number]]" data-errormessage-value-missing="'. $this->lang->line('starting_seq') .' number is required!" maxlength="8"'); ?>
+    </div>   
+
+    <div class="form-group col-md-6">
+        <label for="ending_seq" class="col-form-label"><?php echo $this->lang->line("ending_seq"); ?></label>
+        <?php echo form_input('ending_seq', (isset($_POST['ending_seq']) ? $_POST['ending_seq'] : ""), 'class="form-control tip" id="ending_seq" data-errormessage-value-missing="'. $this->lang->line('ending_seq') .' number is required!" data-validation-engine="validate[required,custom[number]]" maxlength="8"' ); ?>
+    </div> 
+</div>
+
+<div class="row col-md-12">
+    
+    <div class="form-group col-md-6">
+        <label class="col-form-label" for="overide_seq">
+            <?php echo $this->lang->line('overide_seq') ?>
+        </label>
+        <?php  $type = array('' => $this->lang->line('select') ,'1' => 'Yes', '0' => 'No');
+         echo form_dropdown('overide_seq', $type, '', 'class="form-control" data-validation-engine="validate[required]" id="overide_seq"'); ?>
+    </div>    
+
+    <div class="form-group col-md-6">
+        <label class="col-form-label" for="status">
+            <?php echo $this->lang->line('status') ?>
+        </label><span style="color: red;">*</span>
+        <?php $type = array('' => $this->lang->line('select'), '1' => 'Enable', '0' => 'Disable');
+        echo form_dropdown('status', $type, '', 'class="form-control" id="status" data-validation-engine="validate[required]"');
+         ?>
+    </div>  
+</div>
+
+
+<div class="row col-md-12">
+    <div class="form-group col-md-6">
+        <label class="col-form-label" for="starting_seq">
+            <?php echo $this->lang->line('lgn_due_date') ?>
+        </label>
+        <?php  echo form_input(
+                                'lgn_due_date', 
+                                (isset($_POST['lgn_due_date']) ? $_POST['lgn_due_date'] : ''), 
+                                'class="form-control" id="lgn_due_date" maxlength="10" data-validation-engine="validate[required, custom[date2]]" data-errormessage-value-missing="'. $this->lang->line('lgn_due_date') .' is required!"',
+                                'date'); ?>
+    </div>
+</div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-4">
+<?php echo form_submit('submit', $this->lang->line('add_lgn'), array('class' => 'btn btn-success margin-bottom', 'id' => 'lgnaddbtn')); ?>                       
+                    </div>
+                </div>
+           <?php echo form_close(); ?>
+        </div>
+        </div>        
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){        
+        $("#frmlgnadd").validationEngine({ promptPosition: "topRight:-100", scroll: false });
+        $("#lgnaddbtn").click(function(){
+            //debugger
+            var isValid = $("#frmlgnadd").validationEngine('validate');
+            if (isValid) {
+                return true;
+            }else{
+                return false;
+            }
+        });        
+    });
+</script>
