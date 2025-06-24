@@ -1,0 +1,10 @@
+//cost
+
+UPDATE `geopos_transactions` SET `cat`='Cost' WHERE `cat` = 'Basic';
+UPDATE `geopos_trans_cat` SET `name` = 'Cost' WHERE `geopos_trans_cat`.`id` = 3;
+UPDATE `geopos_accounts` SET ` `account_type`='Cost' WHERE `  `account_type`='Basic';
+
+//Check in and Check Out
+
+ALTER TABLE `geopos_invoices`
+ADD `checked_in` tinyint NULL DEFAULT '0' COMMENT '0:New, 1:In 2:Out';
